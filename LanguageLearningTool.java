@@ -29,6 +29,26 @@ public class LanguageLearningTool {
         runQuiz();
         displayResults();
         reviewIncorrectAnswers();
+            Scanner scanner = new Scanner(System.in);
+    
+            // Display welcome message
+            System.out.println("Welcome to your Turkish Study Guide!");
+            System.out.println("Would you like to begin? (Type 'Yes' to start)");
+    
+            // Get user input
+            String response = scanner.nextLine();
+    
+            // Check user response
+            if (response.equalsIgnoreCase("Yes")) {
+                System.out.println("Great! Let's get started!");
+                // Add more functionality here as needed
+            } else {
+                System.out.println("Alright, see you next time!");
+            }
+    
+            // Close the scanner
+            scanner.close();
+        
     }
 
     private static void initializeVocabulary() {
