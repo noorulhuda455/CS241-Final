@@ -48,6 +48,12 @@ public class LanguageLearningTool {
 
     private static void runQuiz() {
         Scanner scanner = new Scanner(System.in);
+    
+        // Display accented character assistance
+        System.out.println("Note: You can copy these accented characters for your answers if needed:");
+        System.out.println("Available accents: ü, ç, ş, ğ, ı, ö, İ");
+        System.out.println();
+    
         while (!questionQueue.isEmpty()) {
             String englishWord = questionQueue.dequeue();
             System.out.println("What is the Turkish translation for: " + englishWord + "?");
@@ -57,27 +63,18 @@ public class LanguageLearningTool {
                 System.out.println("Correct!");
                 correctAnswers++;
     
-                // Play the "merhaba.wav" sound when the word is "Hello"
+                // Play the corresponding sound
                 if (englishWord.equalsIgnoreCase("Hello")) {
                     SoundPlayer.playSound("sounds/merhaba.wav");
-                }
-
-                if(englishWord.equalsIgnoreCase("Good Night")) {
-                    SoundPlayer.playSound("sounds/iyigecelar.wav");
-                }
-
-                if(englishWord.equalsIgnoreCase("Good Morning")) {
+                } else if (englishWord.equalsIgnoreCase("Good Morning")) {
                     SoundPlayer.playSound("sounds/gunaydin.wav");
-                }
-
-                if(englishWord.equalsIgnoreCase("Thank You")) {
+                } else if (englishWord.equalsIgnoreCase("Good Night")) {
+                    SoundPlayer.playSound("sounds/iyigecelar.wav");
+                } else if (englishWord.equalsIgnoreCase("Goodbye")) {
+                    SoundPlayer.playSound("sounds/hoscakal.wav");
+                } else if (englishWord.equalsIgnoreCase("Thank You")) {
                     SoundPlayer.playSound("sounds/tesekkurederim.wav");
                 }
-
-                if(englishWord.equalsIgnoreCase("Goodbye")) {
-                    SoundPlayer.playSound("sounds/hoscakal.wav");
-                }
-                
             } else {
                 System.out.println("Incorrect. The correct answer is: " + vocabulary.get(englishWord));
                 incorrectStack.push(englishWord);
@@ -87,7 +84,7 @@ public class LanguageLearningTool {
             }
             totalQuestions++;
         }
-    }
+    }    
     
 
     private static void displayResults() {
