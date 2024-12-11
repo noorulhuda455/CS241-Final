@@ -59,7 +59,7 @@ public class LanguageLearningTool {
         vocabulary.put("Goodbye", "Hoşça kal");
         vocabulary.put("Thank You", "Teşekkür ederim");
         // new words added 
-        vocabulary.put("Welcome", " Hoş geldiniz");
+        vocabulary.put("Welcome", " Hoş geldin");
         vocabulary.put("Congratulations", "Tebrikler");
         vocabulary.put("Hi", "Selam");
         vocabulary.put("Great to see you", " Sizi görmek harika");
@@ -100,6 +100,17 @@ public class LanguageLearningTool {
                     SoundPlayer.playSound("sounds/hoscakal.wav");
                 } else if (englishWord.equalsIgnoreCase("Thank You")) {
                     SoundPlayer.playSound("sounds/tesekkurederim.wav");
+                    // new additon - ciara 
+                } else if (englishWord.equalsIgnoreCase("Welcome")) {
+                    SoundPlayer.playSound("sounds/Hoşgeldin.wav");
+                } else if (englishWord.equalsIgnoreCase("Congratulations")) {
+                    SoundPlayer.playSound("sounds/Tebrikler.wav");
+                } else if (englishWord.equalsIgnoreCase("Hi")) {
+                    SoundPlayer.playSound("sounds/Selam.wav");
+                } else if (englishWord.equalsIgnoreCase("Great to see you")) {
+                    SoundPlayer.playSound("sounds/Sizigörmekharika.wav");
+                } else if (englishWord.equalsIgnoreCase("Happy birthday")) {
+                    SoundPlayer.playSound("sounds/Doğumgününkutluolsun.wav");
                 }
             } else {
                 System.out.println("Incorrect. The correct answer is: " + vocabulary.get(englishWord));
