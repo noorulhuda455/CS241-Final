@@ -1,10 +1,25 @@
+import java.io.File;
 import java.util.HashMap;
 import java.util.Scanner;
+//import greenfoot.*;
+
+import javax.print.attribute.standard.Media;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class LanguageLearningTool {
+
+    // A hashmap to store the vocabulary (English word and its Turkish translation)
     private static HashMap<String, String> vocabulary = new HashMap<>();
+
+    // A custom queue to hold questions (English words) to be asked in the quiz
     private static CustomQueue<String> questionQueue = new CustomQueue<>();
+
+    // A custom stack to hold incorrectly answered questions for review later
     private static CustomStack<String> incorrectStack = new CustomStack<>();
+
+    // Counters for correct answers and total questions asked
     private static int correctAnswers = 0;
     private static int totalQuestions = 0;
 
@@ -37,29 +52,61 @@ public class LanguageLearningTool {
             String englishWord = questionQueue.dequeue();
             System.out.println("What is the Turkish translation for: " + englishWord + "?");
             String userAnswer = scanner.nextLine().trim();
-
+    
             if (vocabulary.get(englishWord).equalsIgnoreCase(userAnswer)) {
                 System.out.println("Correct!");
                 correctAnswers++;
+    
+                // Play the "merhaba.wav" sound when the word is "Hello"
+                if (englishWord.equalsIgnoreCase("Hello")) {
+                    SoundPlayer.playSound("sounds/merhaba.wav");
+                }
+
+                if(englishWord.equalsIgnoreCase("Good Night")) {
+                    SoundPlayer.playSound("sounds/iyigecelar.wav");
+                }
+
+                if(englishWord.equalsIgnoreCase("Good Morning")) {
+                    SoundPlayer.playSound("sounds/gunaydin.wav");
+                }
+
+                if(englishWord.equalsIgnoreCase("Thank You")) {
+                    SoundPlayer.playSound("sounds/tesekkurederim.wav");
+                }
+
+                if(englishWord.equalsIgnoreCase("Goodbye")) {
+                    SoundPlayer.playSound("sounds/hoscakal.wav");
+                }
+                
             } else {
                 System.out.println("Incorrect. The correct answer is: " + vocabulary.get(englishWord));
                 incorrectStack.push(englishWord);
+    
+                // Play the "au.wav" sound for incorrect answers
+                SoundPlayer.playSound("sounds/au.wav");
             }
             totalQuestions++;
         }
     }
+    
 
     private static void displayResults() {
         System.out.println("\nQuiz Complete!");
         System.out.println("You answered " + correctAnswers + " out of " + totalQuestions + " questions correctly.");
         int accuracy = (int) ((correctAnswers / (double) totalQuestions) * 100);
         System.out.println("Your accuracy: " + accuracy + "%");
-        if (accuracy < 70) {
+        
+        if (correctAnswers == totalQuestions && totalQuestions == 5) {
+            // Play the "fanfare" sound when all 5 answers are correct
+            SoundPlayer.playSound("sounds/fanfare.wav");
+            System.out.println("Congratulations! You got all the answers correct!");
+        } else if (accuracy < 70) {
             System.out.println("Keep practicing!");
         } else {
             System.out.println("Great job!");
         }
     }
+    
 
     private static void reviewIncorrectAnswers() {
         System.out.println("\nReviewing Incorrect Answers...");
@@ -68,4 +115,5 @@ public class LanguageLearningTool {
             System.out.println("Revisit this word: " + incorrectWord + " - " + vocabulary.get(incorrectWord));
         }
     }
+
 }
