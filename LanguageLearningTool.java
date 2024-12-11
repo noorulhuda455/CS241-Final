@@ -37,7 +37,7 @@ public class LanguageLearningTool {
         vocabulary.put("Good Morning", "Günaydın");
         vocabulary.put("Good Night", "İyi Geceler");
         vocabulary.put("Goodbye", "Hoşça kal");
-        vocabulary.put("Thank You", "Teşekkür ederim");
+        vocabulary.put("Thank You", "Teşekkür ederim");//hi
     }
 
     private static void populateQuestionQueue() {
