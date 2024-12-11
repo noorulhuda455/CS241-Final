@@ -37,7 +37,13 @@ public class LanguageLearningTool {
         vocabulary.put("Good Morning", "Günaydın");
         vocabulary.put("Good Night", "İyi Geceler");
         vocabulary.put("Goodbye", "Hoşça kal");
-        vocabulary.put("Thank You", "Teşekkür ederim");//hi
+        vocabulary.put("Thank You", "Teşekkür ederim");
+        // new words added 
+        vocabulary.put("Welcome", " Hoş geldiniz");
+        vocabulary.put("Congratulations", "Tebrikler");
+        vocabulary.put("Hi", "Selam");
+        vocabulary.put("Great to see you", " Sizi görmek harika");
+        vocabulary.put("Happy birthday", "Doğum günün kutlu olsun");
     }
 
     private static void populateQuestionQueue() {
