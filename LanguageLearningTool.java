@@ -1,9 +1,6 @@
 import java.io.File;
 import java.util.HashMap;
 import java.util.Scanner;
-//import greenfoot.*;
-
-import javax.print.attribute.standard.Media;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -24,31 +21,29 @@ public class LanguageLearningTool {
     private static int totalQuestions = 0;
 
     public static void main(String[] args) {
-        initializeVocabulary();
-        populateQuestionQueue();
-        runQuiz();
-        displayResults();
-        reviewIncorrectAnswers();
-            Scanner scanner = new Scanner(System.in);
-    
-            // Display welcome message
-            System.out.println("Welcome to your Turkish Study Guide!");
-            System.out.println("Would you like to begin? (Type 'Yes' to start)");
-    
-            // Get user input
-            String response = scanner.nextLine();
-    
-            // Check user response
-            if (response.equalsIgnoreCase("Yes")) {
-                System.out.println("Great! Let's get started!");
-                // Add more functionality here as needed
-            } else {
-                System.out.println("Alright, see you next time!");
-            }
-    
-            // Close the scanner
-            scanner.close();
-        
+        Scanner scanner = new Scanner(System.in);
+
+        // Display welcome message
+        System.out.println("Welcome to your Turkish Study Guide!");
+        System.out.println("Would you like to begin? (Type 'Yes' to start)");
+
+        // Get user input
+        String response = scanner.nextLine();
+
+        // Check user response
+        if (response.equalsIgnoreCase("Yes")) {
+            System.out.println("Great! Let's get started!");
+            initializeVocabulary();
+            populateQuestionQueue();
+            runQuiz(scanner);
+            displayResults();
+            reviewIncorrectAnswers();
+        } else {
+            System.out.println("Alright, see you next time!");
+        }
+
+        // Close the scanner
+        scanner.close();
     }
 
     private static void initializeVocabulary() {
@@ -58,11 +53,10 @@ public class LanguageLearningTool {
         vocabulary.put("Good Night", "İyi Geceler");
         vocabulary.put("Goodbye", "Hoşça kal");
         vocabulary.put("Thank You", "Teşekkür ederim");
-        // new words added 
-        vocabulary.put("Welcome", " Hoş geldin");
+        vocabulary.put("Welcome", "Hoş geldin");
         vocabulary.put("Congratulations", "Tebrikler");
         vocabulary.put("Hi", "Selam");
-        vocabulary.put("Great to see you", " Sizi görmek harika");
+        vocabulary.put("Great to see you", "Sizi görmek harika");
         vocabulary.put("Happy birthday", "Doğum günün kutlu olsun");
     }
 
@@ -72,64 +66,77 @@ public class LanguageLearningTool {
         }
     }
 
-    private static void runQuiz() {
-        Scanner scanner = new Scanner(System.in);
-    
+    private static void runQuiz(Scanner scanner) {
         // Display accented character assistance
         System.out.println("Note: You can copy these accented characters for your answers if needed:");
         System.out.println("Available accents: ü, ç, ş, ğ, ı, ö, İ");
         System.out.println();
-    
+
         while (!questionQueue.isEmpty()) {
             String englishWord = questionQueue.dequeue();
             System.out.println("What is the Turkish translation for: " + englishWord + "?");
             String userAnswer = scanner.nextLine().trim();
-    
+
             if (vocabulary.get(englishWord).equalsIgnoreCase(userAnswer)) {
                 System.out.println("Correct!");
                 correctAnswers++;
-    
+
                 // Play the corresponding sound
-                if (englishWord.equalsIgnoreCase("Hello")) {
-                    SoundPlayer.playSound("sounds/merhaba.wav");
-                } else if (englishWord.equalsIgnoreCase("Good Morning")) {
-                    SoundPlayer.playSound("sounds/gunaydin.wav");
-                } else if (englishWord.equalsIgnoreCase("Good Night")) {
-                    SoundPlayer.playSound("sounds/iyigecelar.wav");
-                } else if (englishWord.equalsIgnoreCase("Goodbye")) {
-                    SoundPlayer.playSound("sounds/hoscakal.wav");
-                } else if (englishWord.equalsIgnoreCase("Thank You")) {
-                    SoundPlayer.playSound("sounds/tesekkurederim.wav");
-                    // new additon - ciara 
-                } else if (englishWord.equalsIgnoreCase("Welcome")) {
-                    SoundPlayer.playSound("sounds/Hoşgeldin.wav");
-                } else if (englishWord.equalsIgnoreCase("Congratulations")) {
-                    SoundPlayer.playSound("sounds/Tebrikler.wav");
-                } else if (englishWord.equalsIgnoreCase("Hi")) {
-                    SoundPlayer.playSound("sounds/Selam.wav");
-                } else if (englishWord.equalsIgnoreCase("Great to see you")) {
-                    SoundPlayer.playSound("sounds/Sizigörmekharika.wav");
-                } else if (englishWord.equalsIgnoreCase("Happy birthday")) {
-                    SoundPlayer.playSound("sounds/Doğumgününkutluolsun.wav");
-                }
+                playSoundForWord(englishWord);
             } else {
                 System.out.println("Incorrect. The correct answer is: " + vocabulary.get(englishWord));
                 incorrectStack.push(englishWord);
-    
+
                 // Play the "au.wav" sound for incorrect answers
                 SoundPlayer.playSound("sounds/au.wav");
             }
             totalQuestions++;
         }
-    }    
-    
+    }
+
+    private static void playSoundForWord(String englishWord) {
+        switch (englishWord.toLowerCase()) {
+            case "hello":
+                SoundPlayer.playSound("sounds/merhaba.wav");
+                break;
+            case "good morning":
+                SoundPlayer.playSound("sounds/gunaydin.wav");
+                break;
+            case "good night":
+                SoundPlayer.playSound("sounds/iyigecelar.wav");
+                break;
+            case "goodbye":
+                SoundPlayer.playSound("sounds/hoscakal.wav");
+                break;
+            case "thank you":
+                SoundPlayer.playSound("sounds/tesekkurederim.wav");
+                break;
+            case "welcome":
+                SoundPlayer.playSound("sounds/Hoşgeldin.wav");
+                break;
+            case "congratulations":
+                SoundPlayer.playSound("sounds/Tebrikler.wav");
+                break;
+            case "hi":
+                SoundPlayer.playSound("sounds/Selam.wav");
+                break;
+            case "great to see you":
+                SoundPlayer.playSound("sounds/Sizigörmekharika.wav");
+                break;
+            case "happy birthday":
+                SoundPlayer.playSound("sounds/Doğumgününkutluolsun.wav");
+                break;
+            default:
+                break;
+        }
+    }
 
     private static void displayResults() {
         System.out.println("\nQuiz Complete!");
         System.out.println("You answered " + correctAnswers + " out of " + totalQuestions + " questions correctly.");
         int accuracy = (int) ((correctAnswers / (double) totalQuestions) * 100);
         System.out.println("Your accuracy: " + accuracy + "%");
-        
+
         if (correctAnswers == totalQuestions && totalQuestions == 5) {
             // Play the "fanfare" sound when all 5 answers are correct
             SoundPlayer.playSound("sounds/fanfare.wav");
@@ -140,7 +147,6 @@ public class LanguageLearningTool {
             System.out.println("Great job!");
         }
     }
-    
 
     private static void reviewIncorrectAnswers() {
         System.out.println("\nReviewing Incorrect Answers...");
@@ -149,5 +155,6 @@ public class LanguageLearningTool {
             System.out.println("Revisit this word: " + incorrectWord + " - " + vocabulary.get(incorrectWord));
         }
     }
-
 }
+
+
