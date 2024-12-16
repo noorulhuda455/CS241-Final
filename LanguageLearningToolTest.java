@@ -70,7 +70,7 @@ public class LanguageLearningToolTest {
         LanguageLearningTool.getTranslation(null);
     });
 
-    // Check the exception message
+    // Check the exception message, exception handling
     assertEquals("Word cannot be null", exception.getMessage(),
         "Exception message should indicate that the input word cannot be null.");
 }
